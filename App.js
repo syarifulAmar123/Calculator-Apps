@@ -76,6 +76,7 @@ const App = () => {
             marginTop: -70,
             color: 'black',
             fontWeight: '400',
+            fontFamily: 'Kablammo-Regular',
           }}>
           {hasil}
         </Text>
