@@ -1,33 +1,50 @@
 import React, {useState} from 'react';
-import {Image, StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+  Alert,
+} from 'react-native';
 import {backSpace, Ulang} from './assets';
 
 const App = () => {
   const [hasil, setHasil] = useState(0);
+  const [lastChar, setLastChar] = useState('');
 
   const tambah = value => {
-    if (hasil == 0) {
-      setHasil(value);
+    const operators = ['+', '-', '*', '/', ')', '('];
+    if (operators.includes(lastChar) && operators.includes(value)) {
+      return;
+    } else if (hasil === 0) {
+      setHasil(value === 'x' ? '*' : value);
     } else {
-      setHasil(hasil + '' + value);
+      setHasil(hasil + '' + (value === 'x' ? '*' : value));
     }
+
+    setLastChar(value);
   };
 
   const akhir = () => {
-    setHasil(eval(hasil));
+    try {
+      setHasil(eval(hasil).toString());
+      setLastChar('');
+    } catch (error) {
+      Alert.alert('Error in expression');
+    }
   };
 
   const ulang = () => {
     setHasil(0);
+    setLastChar('');
   };
 
   const hapus = () => {
     setHasil(prevHasil => {
-      if (prevHasil.length > 0) {
-        return prevHasil.slice(0, -1);
-      } else {
-        return 0;
-      }
+      const newHasil = prevHasil.slice(0, -1);
+      setLastChar(newHasil.slice(-1));
+      return newHasil;
     });
   };
 
@@ -69,12 +86,10 @@ const App = () => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
+        {/* Operator dan angka */}
         <View style={{flexDirection: 'row', margin: 10, padding: 10}}>
           <TouchableOpacity
-            style={{
-              marginHorizontal: 22,
-              paddingHorizontal: 20,
-            }}
+            style={{marginHorizontal: 22, paddingHorizontal: 20}}
             onPress={() => tambah('(')}>
             <Text style={{fontSize: 29, fontWeight: 'bold', color: '#ccae62'}}>
               (
