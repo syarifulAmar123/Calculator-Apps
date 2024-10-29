@@ -10,22 +10,28 @@ import {
 import {backSpace, Ulang} from './assets';
 
 const App = () => {
-  const [hasil, setHasil] = useState(0);
+  const [hasil, setHasil] = useState('0');
   const [lastChar, setLastChar] = useState('');
 
   const tambah = value => {
     const operators = ['+', '-', '*', '/', ')', '('];
-    if (operators.includes(lastChar) && operators.includes(value)) {
+
+    // Jika hasilnya '0', ganti dengan value yang dimasukkan
+    if (hasil === '0') {
+      if (!operators.includes(value)) {
+        setHasil(value === 'x' ? '*' : value);
+      } else {
+        Alert.alert('Tidak bisa memasukkan operator sebelum angka');
+      }
+      setLastChar(value);
       return;
-    } else if (hasil === 0) {
-      setHasil(value === 'x' ? '*' : value);
-    } else {
-      setHasil(hasil + '' + (value === 'x' ? '*' : value));
+    } else if (operators.includes(lastChar) && operators.includes(value)) {
+      return;
     }
 
+    setHasil(hasil + '' + (value === 'x' ? '*' : value));
     setLastChar(value);
   };
-
   const akhir = () => {
     try {
       setHasil(eval(hasil).toString());
@@ -36,7 +42,7 @@ const App = () => {
   };
 
   const ulang = () => {
-    setHasil(0);
+    setHasil('0');
     setLastChar('');
   };
 
