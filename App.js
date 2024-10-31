@@ -37,7 +37,7 @@ const App = () => {
       setHasil(eval(hasil).toString());
       setLastChar('');
     } catch (error) {
-      Alert.alert('Error in expression');
+      Alert.alert('Perhitungan Salah');
     }
   };
 
