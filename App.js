@@ -15,8 +15,6 @@ const App = () => {
 
   const tambah = value => {
     const operators = ['+', '-', '*', '/', ')', '('];
-
-    // Jika hasilnya '0', ganti dengan value yang dimasukkan
     if (hasil === '0') {
       if (!operators.includes(value)) {
         setHasil(value === 'x' ? '*' : value);
@@ -55,8 +53,8 @@ const App = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: '#0a3d62'}}>
-      <StatusBar barStyle={'dark-content'} backgroundColor={'#0a3d62'} />
+    <View style={{flex: 1, backgroundColor: 'black'}}>
+      <StatusBar barStyle={'dark-content'} backgroundColor={'black'} />
       <TouchableOpacity
         style={{
           width: '100%',
@@ -67,7 +65,7 @@ const App = () => {
           alignItems: 'flex-end',
         }}
         onPress={() => ulang()}>
-        <Image source={Ulang} style={{width: 25, height: 25}} />
+        <Image source={Ulang} style={{width: 40, height: 40}} />
       </TouchableOpacity>
       <View
         style={{
@@ -80,8 +78,8 @@ const App = () => {
             fontSize: 52,
             textAlign: 'right',
             marginTop: -70,
-            color: 'black',
-            fontWeight: '400',
+            color: 'white',
+            fontWeight: '700',
             fontFamily: 'Kablammo-Regular',
           }}>
           {hasil}
